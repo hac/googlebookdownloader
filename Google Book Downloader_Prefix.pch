@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Google Book Downloader' target in the 'Google Book Downloader' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

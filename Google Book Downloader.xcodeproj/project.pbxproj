@@ -1,0 +1,443 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0F288D0310E720C200E0368B /* StretchySegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F288D0210E720C200E0368B /* StretchySegmentedControl.m */; };
+		0F288D3F10E723E600E0368B /* WebImageInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F288D3E10E723E600E0368B /* WebImageInspector.m */; };
+		0F288DE210E72E6600E0368B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F288DE110E72E6600E0368B /* WebKit.framework */; };
+		0F5681FF10C0AB50000A3635 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5681FE10C0AB50000A3635 /* Quartz.framework */; };
+		0F56820010C0AB59000A3635 /* Quartz.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0F5681FE10C0AB50000A3635 /* Quartz.framework */; };
+		0F5D653D10C1A35A00FE8A2A /* GoogleBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D653C10C1A35A00FE8A2A /* GoogleBook.m */; };
+		0F5D654310C1A38700FE8A2A /* GoogleBooksAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D654210C1A38700FE8A2A /* GoogleBooksAPI.m */; };
+		0F5D660B10C1A6E300FE8A2A /* HacStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D660A10C1A6E300FE8A2A /* HacStringAdditions.m */; };
+		0F5D683410C1C6D000FE8A2A /* HacPrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D683310C1C6D000FE8A2A /* HacPrefsController.m */; };
+		0FB1D56D10C1EABC00F10164 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB1D56C10C1EABC00F10164 /* Sparkle.framework */; };
+		0FB1D5E610C1EAF300F10164 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0FB1D56C10C1EABC00F10164 /* Sparkle.framework */; };
+		0FB1D5F110C1EED200F10164 /* RegexKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB1D5F010C1EED200F10164 /* RegexKit.framework */; };
+		0FB1D60A10C1EF0B00F10164 /* RegexKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0FB1D5F010C1EED200F10164 /* RegexKit.framework */; };
+		0FB1D60E10C1EF3C00F10164 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0FB1D60D10C1EF3C00F10164 /* dsa_pub.pem */; };
+		0FDFBD3610ED0A4400D1C3C8 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0FDFBD3510ED0A4400D1C3C8 /* Icon.icns */; };
+		0FFCA7FD10E6FEF600C2D70F /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFCA7FC10E6FEF600C2D70F /* AppController.m */; };
+		1DDD582C0DA1D0D100B32029 /* DownloadWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* DownloadWindow.xib */; };
+		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
+		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
+		8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0F567EE510C07B8A000A3635 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0FB1D60A10C1EF0B00F10164 /* RegexKit.framework in CopyFiles */,
+				0FB1D5E610C1EAF300F10164 /* Sparkle.framework in CopyFiles */,
+				0F56820010C0AB59000A3635 /* Quartz.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0F288D0110E720C200E0368B /* StretchySegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchySegmentedControl.h; sourceTree = "<group>"; };
+		0F288D0210E720C200E0368B /* StretchySegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StretchySegmentedControl.m; sourceTree = "<group>"; };
+		0F288D3D10E723E600E0368B /* WebImageInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebImageInspector.h; sourceTree = "<group>"; };
+		0F288D3E10E723E600E0368B /* WebImageInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebImageInspector.m; sourceTree = "<group>"; };
+		0F288DE110E72E6600E0368B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		0F5681FE10C0AB50000A3635 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
+		0F5D653B10C1A35A00FE8A2A /* GoogleBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleBook.h; sourceTree = "<group>"; };
+		0F5D653C10C1A35A00FE8A2A /* GoogleBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleBook.m; sourceTree = "<group>"; };
+		0F5D654110C1A38700FE8A2A /* GoogleBooksAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleBooksAPI.h; sourceTree = "<group>"; };
+		0F5D654210C1A38700FE8A2A /* GoogleBooksAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleBooksAPI.m; sourceTree = "<group>"; };
+		0F5D660910C1A6E300FE8A2A /* HacStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HacStringAdditions.h; sourceTree = "<group>"; };
+		0F5D660A10C1A6E300FE8A2A /* HacStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HacStringAdditions.m; sourceTree = "<group>"; };
+		0F5D66B210C1B02C00FE8A2A /* GoogleBookDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleBookDelegate.h; sourceTree = "<group>"; };
+		0F5D683210C1C6D000FE8A2A /* HacPrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HacPrefsController.h; sourceTree = "<group>"; };
+		0F5D683310C1C6D000FE8A2A /* HacPrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HacPrefsController.m; sourceTree = "<group>"; };
+		0FB1D56C10C1EABC00F10164 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		0FB1D5F010C1EED200F10164 /* RegexKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RegexKit.framework; sourceTree = "<group>"; };
+		0FB1D60D10C1EF3C00F10164 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		0FDFBD3510ED0A4400D1C3C8 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
+		0FFCA7FB10E6FEF600C2D70F /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
+		0FFCA7FC10E6FEF600C2D70F /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/DownloadWindow.xib; sourceTree = "<group>"; };
+		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
+		2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
+		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32DBCF750370BD2300C91783 /* Google Book Downloader_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Google Book Downloader_Prefix.pch"; sourceTree = "<group>"; };
+		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D15AC370486D014006FF6A4 /* Google Book Downloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Google Book Downloader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D15AC330486D014006FF6A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				0F5681FF10C0AB50000A3635 /* Quartz.framework in Frameworks */,
+				0FB1D56D10C1EABC00F10164 /* Sparkle.framework in Frameworks */,
+				0FB1D5F110C1EED200F10164 /* RegexKit.framework in Frameworks */,
+				0F288DE210E72E6600E0368B /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0F288D3A10E723BA00E0368B /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				0F288D0110E720C200E0368B /* StretchySegmentedControl.h */,
+				0F288D0210E720C200E0368B /* StretchySegmentedControl.m */,
+			);
+			name = "Custom Views";
+			sourceTree = "<group>";
+		};
+		0F288D4210E723F100E0368B /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				0F288D3D10E723E600E0368B /* WebImageInspector.h */,
+				0F288D3E10E723E600E0368B /* WebImageInspector.m */,
+			);
+			name = Debug;
+			sourceTree = "<group>";
+		};
+		0FB1D4DF10C1E76500F10164 /* Book Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F5D66B210C1B02C00FE8A2A /* GoogleBookDelegate.h */,
+				0F5D653B10C1A35A00FE8A2A /* GoogleBook.h */,
+				0F5D653C10C1A35A00FE8A2A /* GoogleBook.m */,
+				0F5D654110C1A38700FE8A2A /* GoogleBooksAPI.h */,
+				0F5D654210C1A38700FE8A2A /* GoogleBooksAPI.m */,
+			);
+			name = "Book Model";
+			sourceTree = "<group>";
+		};
+		0FB1D4E010C1E77B00F10164 /* App Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0F5D683210C1C6D000FE8A2A /* HacPrefsController.h */,
+				0F5D683310C1C6D000FE8A2A /* HacPrefsController.m */,
+				0FFCA7FB10E6FEF600C2D70F /* AppController.h */,
+				0FFCA7FC10E6FEF600C2D70F /* AppController.m */,
+			);
+			name = "App Controller";
+			sourceTree = "<group>";
+		};
+		0FB1D4E110C1E79200F10164 /* Document Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
+				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
+			);
+			name = "Document Controller";
+			sourceTree = "<group>";
+		};
+		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0F288DE110E72E6600E0368B /* WebKit.framework */,
+				0F5681FE10C0AB50000A3635 /* Quartz.framework */,
+				0FB1D56C10C1EABC00F10164 /* Sparkle.framework */,
+				0FB1D5F010C1EED200F10164 /* RegexKit.framework */,
+				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
+				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
+				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB0FE9D524F11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D15AC370486D014006FF6A4 /* Google Book Downloader.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A37F4AAFDCFA73011CA2CEA /* Google Book Downloader */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4ABFDCFA73011CA2CEA /* Classes */,
+				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				2A37F4B8FDCFA73011CA2CEA /* Resources */,
+				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
+				19C28FB0FE9D524F11CA2CBB /* Products */,
+			);
+			name = "Google Book Downloader";
+			sourceTree = "<group>";
+		};
+		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0F5D660910C1A6E300FE8A2A /* HacStringAdditions.h */,
+				0F5D660A10C1A6E300FE8A2A /* HacStringAdditions.m */,
+				0FB1D4E110C1E79200F10164 /* Document Controller */,
+				0FB1D4DF10C1E76500F10164 /* Book Model */,
+				0FB1D4E010C1E77B00F10164 /* App Controller */,
+				0F288D3A10E723BA00E0368B /* Custom Views */,
+				0F288D4210E723F100E0368B /* Debug */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF750370BD2300C91783 /* Google Book Downloader_Prefix.pch */,
+				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0FDFBD3510ED0A4400D1C3C8 /* Icon.icns */,
+				0FB1D60D10C1EF3C00F10164 /* dsa_pub.pem */,
+				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
+				8D15AC360486D014006FF6A4 /* Info.plist */,
+				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
+				1DDD58280DA1D0D100B32029 /* DownloadWindow.xib */,
+				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
+				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D15AC270486D014006FF6A4 /* Google Book Downloader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Google Book Downloader" */;
+			buildPhases = (
+				8D15AC2B0486D014006FF6A4 /* Resources */,
+				8D15AC300486D014006FF6A4 /* Sources */,
+				8D15AC330486D014006FF6A4 /* Frameworks */,
+				0F567EE510C07B8A000A3635 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Google Book Downloader";
+			productInstallPath = "$(HOME)/Applications";
+			productName = "Google Book Downloader";
+			productReference = 8D15AC370486D014006FF6A4 /* Google Book Downloader.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Google Book Downloader" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Google Book Downloader */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D15AC270486D014006FF6A4 /* Google Book Downloader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D15AC2B0486D014006FF6A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
+				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
+				1DDD582C0DA1D0D100B32029 /* DownloadWindow.xib in Resources */,
+				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
+				0FB1D60E10C1EF3C00F10164 /* dsa_pub.pem in Resources */,
+				0FDFBD3610ED0A4400D1C3C8 /* Icon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D15AC300486D014006FF6A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */,
+				8D15AC320486D014006FF6A4 /* main.m in Sources */,
+				0F5D653D10C1A35A00FE8A2A /* GoogleBook.m in Sources */,
+				0F5D654310C1A38700FE8A2A /* GoogleBooksAPI.m in Sources */,
+				0F5D660B10C1A6E300FE8A2A /* HacStringAdditions.m in Sources */,
+				0F5D683410C1C6D000FE8A2A /* HacPrefsController.m in Sources */,
+				0FFCA7FD10E6FEF600C2D70F /* AppController.m in Sources */,
+				0F288D0310E720C200E0368B /* StretchySegmentedControl.m in Sources */,
+				0F288D3F10E723E600E0368B /* WebImageInspector.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1660FE840EACC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58280DA1D0D100B32029 /* DownloadWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD58290DA1D0D100B32029 /* English */,
+			);
+			name = DownloadWindow.xib;
+			sourceTree = "<group>";
+		};
+		1DDD582A0DA1D0D100B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD582B0DA1D0D100B32029 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A37F4BAFDCFA73011CA2CEA /* English */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C05733C808A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Local/Frameworks\"",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Google Book Downloader_Prefix.pch";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = "Google Book Downloader";
+			};
+			name = Debug;
+		};
+		C05733C908A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Local/Frameworks\"",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Google Book Downloader_Prefix.pch";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = "Google Book Downloader";
+			};
+			name = Release;
+		};
+		C05733CC08A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.3.9;
+			};
+			name = Debug;
+		};
+		C05733CD08A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Google Book Downloader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733C808A9546B00998B17 /* Debug */,
+				C05733C908A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Google Book Downloader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733CC08A9546B00998B17 /* Debug */,
+				C05733CD08A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+}
