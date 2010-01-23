@@ -11,7 +11,6 @@
 		0F288D3F10E723E600E0368B /* WebImageInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F288D3E10E723E600E0368B /* WebImageInspector.m */; };
 		0F288DE210E72E6600E0368B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F288DE110E72E6600E0368B /* WebKit.framework */; };
 		0F5681FF10C0AB50000A3635 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5681FE10C0AB50000A3635 /* Quartz.framework */; };
-		0F56820010C0AB59000A3635 /* Quartz.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0F5681FE10C0AB50000A3635 /* Quartz.framework */; };
 		0F5D653D10C1A35A00FE8A2A /* GoogleBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D653C10C1A35A00FE8A2A /* GoogleBook.m */; };
 		0F5D654310C1A38700FE8A2A /* GoogleBooksAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D654210C1A38700FE8A2A /* GoogleBooksAPI.m */; };
 		0F5D660B10C1A6E300FE8A2A /* HacStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D660A10C1A6E300FE8A2A /* HacStringAdditions.m */; };
@@ -41,7 +40,6 @@
 			files = (
 				0FB1D60A10C1EF0B00F10164 /* RegexKit.framework in CopyFiles */,
 				0FB1D5E610C1EAF300F10164 /* Sparkle.framework in CopyFiles */,
-				0F56820010C0AB59000A3635 /* Quartz.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
