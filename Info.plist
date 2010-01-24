@@ -6,6 +6,10 @@
 	<string>dsa_pub.pem</string>
 	<key>SUFeedURL</key>
 	<string>http://hactheplanet.com/appcast/googlebookdownloader/</string>
+	<key>Company URL</key>
+	<string>http://hactheplanet.com/</string>
+	<key>Application URL</key>
+	<string>http://hactheplanet.com/mac/googlebookdownloader</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>

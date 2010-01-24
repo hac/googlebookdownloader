@@ -12,4 +12,7 @@ AppController *sharedController;
 
 - (void)writeStringToLog:(NSString *)string;
 
+- (void)openCompanyURL:(id)sender;
+- (void)openAppURL:(id)sender;
+
 @end

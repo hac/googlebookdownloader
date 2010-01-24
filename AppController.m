@@ -24,4 +24,16 @@
 	[logView setFont:[NSFont fontWithName:@"Monaco" size:10]];
 }
 
+- (void)openCompanyURL:(id)sender
+{
+	NSString *homePageURL = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Company URL"];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:homePageURL]];
+}
+
+- (void)openAppURL:(id)sender
+{
+	NSString *homePageURL = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Application URL"];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:homePageURL]];
+}
+
 @end
