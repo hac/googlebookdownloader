@@ -10,6 +10,7 @@
 {
 }
 
++ (BOOL)overviewPageExistsForBookWithId:(NSString *)bookId;
 + (NSString *)titleForBookWithId:(NSString *)bookId;
 
 + (NSString *)initialJsonIndexForBookWithId:(NSString *)bookId;

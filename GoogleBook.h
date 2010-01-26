@@ -8,12 +8,12 @@
 @interface GoogleBook : NSObject
 {
 	id <GoogleBookDelegate> delegate;
-	
+
 	NSString *bookId, *initialIndexJSON;
-	
+
 	NSMutableDictionary *imageIndex;
 	NSMutableArray *pageOrder;
-	
+
 	BOOL shouldAbortAsSoonAsPossible;
 }
 
@@ -25,6 +25,7 @@
 
 - (NSString *)bookTitle;
 
+- (BOOL)bookExists;
 - (BOOL)bookIsValid;
 - (BOOL)completeIndex;
 
