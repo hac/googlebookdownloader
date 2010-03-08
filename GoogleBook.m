@@ -220,14 +220,18 @@
 
 		NSString *logString = [NSString stringWithFormat:@"%@> Adding image: %@\nWIDTH:%f HEIGHT:%f", [self bookId], imagePath, [pageImage size].width, [pageImage size].height];
 		[[AppController sharedController] writeStringToLog:logString];
-
-		PDFPage *page = [[PDFPage alloc] initWithImage:(id)pageImage]; // If we don't cast pageImage to type id we get a warning. I don't know why.
-
-		[pdfDocument insertPage:page atIndex:[pdfDocument pageCount]];
-
-		//[imageData release];
+		
+		// Sometimes we get a 404 for pages we're not allowed to see.
+		bool pageImageIsValid = (pageImage != nil) && ([pageImage size].width > 0) && ([pageImage size].height > 0);
+		
+		if (pageImageIsValid)
+		{
+			PDFPage *page = [[PDFPage alloc] initWithImage:(id)pageImage]; // If we don't cast pageImage to type id we get a warning. I don't know why.
+			[pdfDocument insertPage:page atIndex:[pdfDocument pageCount]];
+			[page release];
+		}
+		
 		[pageImage release];
-		[page release];
 
 		// Stop if the user clicks cancel.
 		if (shouldAbortAsSoonAsPossible)
