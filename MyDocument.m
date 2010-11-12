@@ -201,8 +201,10 @@
 	[progressLabel setStringValue:@"Saving PDF to disk..."];
 
 	// The last time I tried to write it atomically was with a 136 page book and the file did not show up.
-	bool saveSuccess = [[pdfDocument dataRepresentation] writeToFile:path
-														  atomically:NO];
+	/*bool saveSuccess = [[pdfDocument dataRepresentation] writeToFile:path
+														  atomically:NO];*/
+	bool saveSuccess = [pdfDocument writeToFile:path];
+	
 	if (!saveSuccess)
 	{
 		[self setErrorMessage:@"Couldn't Save PDF"];
