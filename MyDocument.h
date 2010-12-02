@@ -11,6 +11,12 @@
 {
 	IBOutlet NSTextField *locationBar;
 	
+	// These are for the save sheet:
+	NSSavePanel *savePanel;
+	IBOutlet NSView *formatChooserView;
+	IBOutlet NSPopUpButton *formatChooserButton;
+	BOOL saveAsFolder;
+	
 	// These are in the progress indicator sheet:
 	IBOutlet NSTextField *progressLabel;
 	IBOutlet NSProgressIndicator *progressIndicator;
@@ -32,5 +38,7 @@
 
 - (IBAction)beginDownload:(id)sender;
 - (IBAction)cancelDownload:(id)sender;
+
+- (IBAction)saveFormatChanged:(id)sender;
 
 @end

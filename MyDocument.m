@@ -2,6 +2,8 @@
 
 #import <RegexKit/RegexKit.h>
 
+#import "HacSavePanelAdditions.h"
+
 @implementation MyDocument
 
 #pragma mark -
@@ -240,16 +242,27 @@
 
 	if (bookWasIndexedSuccessfully)
 	{
-		// Collect all the images in a PDF document.
-		pdfDocument = [[book pdfDocument] retain];
-
-		if (pdfDocument)
+		if (saveAsFolder)
 		{
-			// Write the PDF document to the disk.
-			[self savePDFDocumentAtPath:savePath];
+			[book saveImagesToFolder:savePath];
+			
+			[self performSelectorOnMainThread:@selector(hideLoadingSheet)
+								   withObject:nil
+								waitUntilDone:YES];
+		}
+		else
+		{
+			// Collect all the images in a PDF document.
+			pdfDocument = [[book pdfDocument] retain];
+			
+			if (pdfDocument)
+			{
+				// Write the PDF document to the disk.
+				[self savePDFDocumentAtPath:savePath];
+			}
 		}
 	}
-
+	
 	[self cleanUpAfterDownload];
 
 	[autoreleasePool release];
@@ -261,10 +274,11 @@
 - (void)runSaveSheetWithFilename:(NSString *)filename
 {
 	// Run a save sheet.
-	NSSavePanel *savePanel = [NSSavePanel savePanel];
-	[savePanel setRequiredFileType:@"pdf"];
+	savePanel = [NSSavePanel savePanel];
 	[savePanel setCanSelectHiddenExtension:YES];
 	[savePanel setExtensionHidden:NO];
+	[savePanel setAccessoryView:formatChooserView];
+	[self saveFormatChanged:nil];
 
 	[savePanel beginSheetForDirectory:nil
 								 file:filename
@@ -274,13 +288,13 @@
 						  contextInfo:nil];
 }
 
-- (void)modalSavePanelDidEnd:(NSSavePanel *)savePanel
+- (void)modalSavePanelDidEnd:(NSSavePanel *)aSavePanel
 				  returnCode:(int)returnCode
 				 contextInfo:(NSDictionary *)contextInfo
 {
 	if (returnCode == NSOKButton)
 	{
-		savePath = [[savePanel filename] retain];
+		savePath = [[aSavePanel filename] retain];
 		[NSThread detachNewThreadSelector:@selector(download)
 								 toTarget:self
 							   withObject:nil];
@@ -289,6 +303,20 @@
 	{
 		// They clicked cancel.
 		[self cleanUpAfterDownload];
+	}
+}
+
+- (IBAction)saveFormatChanged:(id)sender
+{
+	if (savePanel)
+	{
+		saveAsFolder = [formatChooserButton indexOfSelectedItem];
+		[savePanel setRequiredFileType:(saveAsFolder)?@"":@"pdf"];
+		NSString *fileName = [savePanel filename], *extension = [fileName pathExtension];
+		if (saveAsFolder && [extension isEqualToString:@"pdf"])
+		{
+			[savePanel setFilename:[fileName stringByDeletingPathExtension]];
+		}
 	}
 }
 

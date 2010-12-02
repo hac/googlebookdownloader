@@ -10,6 +10,9 @@
 		0F288D0310E720C200E0368B /* StretchySegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F288D0210E720C200E0368B /* StretchySegmentedControl.m */; };
 		0F288D3F10E723E600E0368B /* WebImageInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F288D3E10E723E600E0368B /* WebImageInspector.m */; };
 		0F288DE210E72E6600E0368B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F288DE110E72E6600E0368B /* WebKit.framework */; };
+		0F4113E612A7106C00F1E43D /* HacSavePanelAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4113E512A7106C00F1E43D /* HacSavePanelAdditions.m */; };
+		0F41141312A7168300F1E43D /* Template.html in Resources */ = {isa = PBXBuildFile; fileRef = 0F41141212A7168300F1E43D /* Template.html */; };
+		0F41141712A7171200F1E43D /* HacHTMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F41141612A7171200F1E43D /* HacHTMLDocument.m */; };
 		0F5681FF10C0AB50000A3635 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5681FE10C0AB50000A3635 /* Quartz.framework */; };
 		0F5D653D10C1A35A00FE8A2A /* GoogleBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D653C10C1A35A00FE8A2A /* GoogleBook.m */; };
 		0F5D654310C1A38700FE8A2A /* GoogleBooksAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D654210C1A38700FE8A2A /* GoogleBooksAPI.m */; };
@@ -52,6 +55,11 @@
 		0F288D3D10E723E600E0368B /* WebImageInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebImageInspector.h; sourceTree = "<group>"; };
 		0F288D3E10E723E600E0368B /* WebImageInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebImageInspector.m; sourceTree = "<group>"; };
 		0F288DE110E72E6600E0368B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		0F4113E412A7106C00F1E43D /* HacSavePanelAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HacSavePanelAdditions.h; sourceTree = "<group>"; };
+		0F4113E512A7106C00F1E43D /* HacSavePanelAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HacSavePanelAdditions.m; sourceTree = "<group>"; };
+		0F41141212A7168300F1E43D /* Template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Template.html; sourceTree = "<group>"; };
+		0F41141512A7171200F1E43D /* HacHTMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HacHTMLDocument.h; sourceTree = "<group>"; };
+		0F41141612A7171200F1E43D /* HacHTMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HacHTMLDocument.m; sourceTree = "<group>"; };
 		0F5681FE10C0AB50000A3635 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		0F5D653B10C1A35A00FE8A2A /* GoogleBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleBook.h; sourceTree = "<group>"; };
 		0F5D653C10C1A35A00FE8A2A /* GoogleBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleBook.m; sourceTree = "<group>"; };
@@ -196,6 +204,10 @@
 			children = (
 				0F5D660910C1A6E300FE8A2A /* HacStringAdditions.h */,
 				0F5D660A10C1A6E300FE8A2A /* HacStringAdditions.m */,
+				0F41141512A7171200F1E43D /* HacHTMLDocument.h */,
+				0F41141612A7171200F1E43D /* HacHTMLDocument.m */,
+				0F4113E412A7106C00F1E43D /* HacSavePanelAdditions.h */,
+				0F4113E512A7106C00F1E43D /* HacSavePanelAdditions.m */,
 				0FB1D4E110C1E79200F10164 /* Document Controller */,
 				0FB1D4DF10C1E76500F10164 /* Book Model */,
 				0FB1D4E010C1E77B00F10164 /* App Controller */,
@@ -224,6 +236,7 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* DownloadWindow.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				0F41141212A7168300F1E43D /* Template.html */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -287,6 +300,7 @@
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				0FB1D60E10C1EF3C00F10164 /* dsa_pub.pem in Resources */,
 				0FDFBD3610ED0A4400D1C3C8 /* Icon.icns in Resources */,
+				0F41141312A7168300F1E43D /* Template.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +320,8 @@
 				0FFCA7FD10E6FEF600C2D70F /* AppController.m in Sources */,
 				0F288D0310E720C200E0368B /* StretchySegmentedControl.m in Sources */,
 				0F288D3F10E723E600E0368B /* WebImageInspector.m in Sources */,
+				0F4113E612A7106C00F1E43D /* HacSavePanelAdditions.m in Sources */,
+				0F41141712A7171200F1E43D /* HacHTMLDocument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,11 +410,12 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.3.9;
+				SDKROOT = macosx10.4;
 			};
 			name = Debug;
 		};

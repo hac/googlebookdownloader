@@ -6,6 +6,8 @@
 
 #import "HacStringAdditions.h"
 
+#import "HacHTMLDocument.h"
+
 #import "AppController.h"
 
 @implementation GoogleBook
@@ -242,7 +244,62 @@
 }
 
 #pragma mark -
-#pragma mark Cancelling active procedures.
+#pragma mark Saving as a folder
+
+- (BOOL)saveImagesToFolder:(NSString *)folderPath
+{
+	NSProgressIndicator *progressIndicator = [delegate bookProcessingProgressIndicator];
+	[progressIndicator setDoubleValue:0];
+	[progressIndicator setIndeterminate:NO];
+	[progressIndicator setMaxValue:[pageOrder count]];	
+	
+	BOOL isDirectory;
+	if ([[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDirectory] && isDirectory)
+	{
+		[[NSFileManager defaultManager] removeFileAtPath:folderPath handler:nil];
+	}
+	
+	if (![[NSFileManager defaultManager] createDirectoryAtPath:folderPath
+													attributes:nil])
+	{
+		return NO;
+	}
+	
+	NSString *htmlBody = @"";
+	
+	int i;
+	for (i = 0; i < [pageOrder count]; i++)
+	{
+		[progressIndicator setDoubleValue:(double)i];
+		[delegate bookProcessingStatusChanged:[NSString stringWithFormat:@"Downloading images: %d/%d pages complete", i, [pageOrder count]]];
+		
+		NSString *pageNumber = [pageOrder objectAtIndex:i];
+		NSString *imagePath = [imageIndex valueForKey:pageNumber];
+		
+		NSData *jpgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imagePath]];
+		
+		if (jpgData)
+		{
+			NSString *newFileName = [NSString stringWithFormat:@"%@.jpg", pageNumber];
+			NSString *newFilePath = [folderPath stringByAppendingPathComponent:newFileName];
+			
+			[jpgData writeToFile:newFilePath
+					  atomically:YES];
+			htmlBody = [htmlBody stringByAppendingString:[NSString stringWithFormat:@"<img src=\"%@\" /><br />\n", newFileName]];
+		}
+	}
+	
+	NSString *html = [HacHTMLDocument htmlWithTitle:[self bookTitle]
+											   body:htmlBody];
+	
+	[html writeToFile:[folderPath stringByAppendingPathComponent:@"index.html"]
+		   atomically:YES];
+	
+	return YES;
+}
+
+#pragma mark -
+#pragma mark Cancelling active procedures
 
 - (void)abortProcedures
 {

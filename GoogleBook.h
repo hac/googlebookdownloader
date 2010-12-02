@@ -31,6 +31,8 @@
 
 - (PDFDocument *)pdfDocument;
 
+- (BOOL)saveImagesToFolder:(NSString *)folderPath;
+
 // Calling this stops completeIndex or pdfDocument as soon as possible. It is called when the user clicks the cancel button.
 - (void)abortProcedures;
 
