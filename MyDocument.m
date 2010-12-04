@@ -214,15 +214,7 @@
 		[self performSelectorOnMainThread:@selector(runAlertSheetForError) withObject:nil waitUntilDone:YES];
 		return;
 	}
-
-	[self performSelectorOnMainThread:@selector(hideLoadingSheet)
-						   withObject:nil
-						waitUntilDone:YES];
-
-	// Open the PDF with the default application if the option is enabled in the preferences.
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AutoOpenDownloadsInFinder"])
-		[[NSWorkspace sharedWorkspace] openFile:path];
-
+	
 	[autoreleasePool release];
 
 }
@@ -245,10 +237,6 @@
 		if (saveAsFolder)
 		{
 			[book saveImagesToFolder:savePath];
-			
-			[self performSelectorOnMainThread:@selector(hideLoadingSheet)
-								   withObject:nil
-								waitUntilDone:YES];
 		}
 		else
 		{
@@ -261,6 +249,18 @@
 				[self savePDFDocumentAtPath:savePath];
 			}
 		}
+		
+		[self performSelectorOnMainThread:@selector(hideLoadingSheet)
+							   withObject:nil
+							waitUntilDone:YES];
+		
+		// Open the book with the default application if the option is enabled in the preferences.
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AutoOpenDownloadsInFinder"])
+		{
+			NSString *openPath = (saveAsFolder)?[savePath stringByAppendingPathComponent:@"index.html"]:savePath;
+			[[NSWorkspace sharedWorkspace] openFile:openPath];				
+		}
+		
 	}
 	
 	[self cleanUpAfterDownload];
