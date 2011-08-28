@@ -14,5 +14,8 @@ AppController *sharedController;
 
 - (void)openCompanyURL:(id)sender;
 - (void)openAppURL:(id)sender;
+- (void)openDonateURL:(id)sender;
+
+- (void)showDonateAlert;
 
 @end

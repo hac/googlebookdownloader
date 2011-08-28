@@ -5,16 +5,20 @@
 // We use PDFKit from Quartz to make a PDF of the book from the JPEGs that Google Books returns.
 #import <Quartz/Quartz.h>
 
-@interface GoogleBook : NSObject
+#import "ResourceDownloader.h"
+
+@interface GoogleBook : ResourceDownloader
 {
 	id <GoogleBookDelegate> delegate;
 
-	NSString *bookId, *initialIndexJSON;
+	NSString *bookId, *folderPath;
+	NSMutableString *htmlBody;
 
-	NSMutableDictionary *imageIndex;
-	NSMutableArray *pageOrder;
-
-	BOOL shouldAbortAsSoonAsPossible;
+	BOOL shouldAbortAsSoonAsPossible, scrollComplete, isPDF;
+	
+	int pagesDownloaded;
+	
+	PDFDocument *pdfDocument;
 }
 
 - (void)setDelegate:(id)newDelegate;
@@ -26,8 +30,6 @@
 - (NSString *)bookTitle;
 
 - (BOOL)bookExists;
-- (BOOL)bookIsValid;
-- (BOOL)completeIndex;
 
 - (PDFDocument *)pdfDocument;
 

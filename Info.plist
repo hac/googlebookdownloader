@@ -10,6 +10,8 @@
 	<string>http://hactheplanet.com/</string>
 	<key>Application URL</key>
 	<string>http://hactheplanet.com/mac/googlebookdownloader</string>
+	<key>Donate URL</key>
+	<string>https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=U6WADPXC4H83S</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
@@ -50,7 +52,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.2</string>
+	<string>2.0</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

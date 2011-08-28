@@ -36,4 +36,20 @@
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:homePageURL]];
 }
 
+- (void)openDonateURL:(id)sender
+{
+	NSString *donateURL = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Donate URL"];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:donateURL]];
+}
+
+- (void)showDonateAlert
+{
+	int button = NSRunAlertPanel(@"Please Donate!", @"The many hours spent maintaining and improving Google Book Downloader are paid for by donations. Please show your support by donating—that's the best way to ensure this application will continue to improve!", @"Donate!", @"No, thanks", nil);
+	if (button == 1)
+	{
+		[self openDonateURL:nil];
+	}
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DonateAlertShown"];
+}
+
 @end

@@ -13,8 +13,4 @@
 + (BOOL)overviewPageExistsForBookWithId:(NSString *)bookId;
 + (NSString *)titleForBookWithId:(NSString *)bookId;
 
-+ (NSString *)initialJsonIndexForBookWithId:(NSString *)bookId;
-+ (NSString *)jsonIndexByAskingForPage:(NSString *)pageNumber
-						 ForBookWithId:(NSString *)bookId;
-
 @end

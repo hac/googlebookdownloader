@@ -4,6 +4,8 @@
 
 #import "HacSavePanelAdditions.h"
 
+#import "AppController.h"
+
 @implementation MyDocument
 
 #pragma mark -
@@ -26,6 +28,8 @@
 - (void)showLoadingSheet
 // Show the progress indicator.
 {
+	[self bookProcessingStatusChanged:@"Loading book..."];
+	
 	[progressIndicator setUsesThreadedAnimation:YES];
 	[progressIndicator startAnimation:nil];
 
@@ -162,16 +166,21 @@
 
 	// The book will call delegate methods to indicate progress or errors (see the delegate methods above).
 	[book setDelegate:self];
-
+	
 	// The user could have given us the URL or the Book ID. We want the Book ID no matter which one they gave us.
 	[book setBookId:[self bookIdFromUserInput]];
 
-	if (![book bookIsValid])
+	if ([[book bookId] rangeOfString:@"/"].location != NSNotFound)
 	{
-		if([book bookExists])
-			[self bookProcessingDidFailWithMessageText:@"No Preview Available"
-									andInformativeText:@"The book you requested exists but I cannot download it because it does not support previewing."];
-		else
+		[self bookProcessingDidFailWithMessageText:@"Bad URL"
+								andInformativeText:@"This does not look like a Google Books URL!"];
+		
+		[self cleanUpAfterDownload];
+		return;
+		
+	}
+	if (![book bookExists])
+	{
 			[self bookProcessingDidFailWithMessageText:@"Bad Book ID"
 									andInformativeText:@"I looked on Google Books for the book with that ID but I couldn't find it!"];
 
@@ -183,7 +192,7 @@
 	// Now we need to do the longer tasks, so we will show the save sheet and then create a new thread.
 	[self performSelectorOnMainThread:@selector(runSaveSheetWithFilename:)
 						   withObject:[book bookTitle]
-						waitUntilDone:NO];
+						waitUntilDone:YES];
 }
 
 - (IBAction)cancelDownload:(id)sender
@@ -222,45 +231,39 @@
 - (void)download
 {
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
+	
+	[self performSelectorOnMainThread:@selector(showLoadingSheet) withObject:nil waitUntilDone:YES];
 
-	[progressLabel setStringValue:@"Indexing pages..."];
-
-	[self performSelectorOnMainThread:@selector(showLoadingSheet)
+	if (saveAsFolder)
+	{
+		[book saveImagesToFolder:savePath];
+	}
+	else
+	{
+		// Collect all the images in a PDF document.
+		pdfDocument = [[book pdfDocument] retain];
+		
+		if (pdfDocument)
+		{
+			// Write the PDF document to the disk.
+			[self savePDFDocumentAtPath:savePath];
+		}
+	}
+	
+	[self performSelectorOnMainThread:@selector(hideLoadingSheet)
 						   withObject:nil
 						waitUntilDone:YES];
-
-	// Using the private Google Books AJAX API, get the URL of an image for each available page.
-	BOOL bookWasIndexedSuccessfully = [book completeIndex];
-
-	if (bookWasIndexedSuccessfully)
+	
+	// Open the book with the default application if the option is enabled in the preferences.
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AutoOpenDownloadsInFinder"])
 	{
-		if (saveAsFolder)
-		{
-			[book saveImagesToFolder:savePath];
-		}
-		else
-		{
-			// Collect all the images in a PDF document.
-			pdfDocument = [[book pdfDocument] retain];
-			
-			if (pdfDocument)
-			{
-				// Write the PDF document to the disk.
-				[self savePDFDocumentAtPath:savePath];
-			}
-		}
-		
-		[self performSelectorOnMainThread:@selector(hideLoadingSheet)
-							   withObject:nil
-							waitUntilDone:YES];
-		
-		// Open the book with the default application if the option is enabled in the preferences.
-		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AutoOpenDownloadsInFinder"])
-		{
-			NSString *openPath = (saveAsFolder)?[savePath stringByAppendingPathComponent:@"index.html"]:savePath;
-			[[NSWorkspace sharedWorkspace] openFile:openPath];				
-		}
-		
+		NSString *openPath = (saveAsFolder)?[savePath stringByAppendingPathComponent:@"index.html"]:savePath;
+		[[NSWorkspace sharedWorkspace] openFile:openPath];				
+	}
+	
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"DonateAlertShown"])
+	{
+		[[AppController sharedController] showDonateAlert];
 	}
 	
 	[self cleanUpAfterDownload];

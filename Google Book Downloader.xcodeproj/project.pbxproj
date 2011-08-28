@@ -18,6 +18,11 @@
 		0F5D654310C1A38700FE8A2A /* GoogleBooksAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D654210C1A38700FE8A2A /* GoogleBooksAPI.m */; };
 		0F5D660B10C1A6E300FE8A2A /* HacStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D660A10C1A6E300FE8A2A /* HacStringAdditions.m */; };
 		0F5D683410C1C6D000FE8A2A /* HacPrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D683310C1C6D000FE8A2A /* HacPrefsController.m */; };
+		0F6E2F6E1408153A00D385E9 /* ResourceDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E2F6D1408153A00D385E9 /* ResourceDownloader.m */; };
+		0F6E2F9F14081D3000D385E9 /* DDURLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E2F9E14081D3000D385E9 /* DDURLParser.m */; };
+		0F6E311B14093C9E00D385E9 /* HideToolbars.js in Resources */ = {isa = PBXBuildFile; fileRef = 0F6E2F6F1408182500D385E9 /* HideToolbars.js */; };
+		0F6E311C14093C9E00D385E9 /* ScrollThroughBook.js in Resources */ = {isa = PBXBuildFile; fileRef = 0F6E2F701408182500D385E9 /* ScrollThroughBook.js */; };
+		0F6E311D14093C9E00D385E9 /* jquery-1.6.2.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 0F6E2F711408182500D385E9 /* jquery-1.6.2.min.js */; };
 		0FB1D56D10C1EABC00F10164 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB1D56C10C1EABC00F10164 /* Sparkle.framework */; };
 		0FB1D5E610C1EAF300F10164 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0FB1D56C10C1EABC00F10164 /* Sparkle.framework */; };
 		0FB1D5F110C1EED200F10164 /* RegexKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB1D5F010C1EED200F10164 /* RegexKit.framework */; };
@@ -70,6 +75,13 @@
 		0F5D66B210C1B02C00FE8A2A /* GoogleBookDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleBookDelegate.h; sourceTree = "<group>"; };
 		0F5D683210C1C6D000FE8A2A /* HacPrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HacPrefsController.h; sourceTree = "<group>"; };
 		0F5D683310C1C6D000FE8A2A /* HacPrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HacPrefsController.m; sourceTree = "<group>"; };
+		0F6E2F6C1408153A00D385E9 /* ResourceDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceDownloader.h; sourceTree = "<group>"; };
+		0F6E2F6D1408153A00D385E9 /* ResourceDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceDownloader.m; sourceTree = "<group>"; };
+		0F6E2F6F1408182500D385E9 /* HideToolbars.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HideToolbars.js; sourceTree = "<group>"; };
+		0F6E2F701408182500D385E9 /* ScrollThroughBook.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ScrollThroughBook.js; sourceTree = "<group>"; };
+		0F6E2F711408182500D385E9 /* jquery-1.6.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.6.2.min.js"; sourceTree = "<group>"; };
+		0F6E2F9D14081D3000D385E9 /* DDURLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDURLParser.h; sourceTree = "<group>"; };
+		0F6E2F9E14081D3000D385E9 /* DDURLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDURLParser.m; sourceTree = "<group>"; };
 		0FB1D56C10C1EABC00F10164 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		0FB1D5F010C1EED200F10164 /* RegexKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RegexKit.framework; sourceTree = "<group>"; };
 		0FB1D60D10C1EF3C00F10164 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
@@ -128,6 +140,8 @@
 		0FB1D4DF10C1E76500F10164 /* Book Model */ = {
 			isa = PBXGroup;
 			children = (
+				0F6E2F6C1408153A00D385E9 /* ResourceDownloader.h */,
+				0F6E2F6D1408153A00D385E9 /* ResourceDownloader.m */,
 				0F5D66B210C1B02C00FE8A2A /* GoogleBookDelegate.h */,
 				0F5D653B10C1A35A00FE8A2A /* GoogleBook.h */,
 				0F5D653C10C1A35A00FE8A2A /* GoogleBook.m */,
@@ -208,6 +222,8 @@
 				0F41141612A7171200F1E43D /* HacHTMLDocument.m */,
 				0F4113E412A7106C00F1E43D /* HacSavePanelAdditions.h */,
 				0F4113E512A7106C00F1E43D /* HacSavePanelAdditions.m */,
+				0F6E2F9D14081D3000D385E9 /* DDURLParser.h */,
+				0F6E2F9E14081D3000D385E9 /* DDURLParser.m */,
 				0FB1D4E110C1E79200F10164 /* Document Controller */,
 				0FB1D4DF10C1E76500F10164 /* Book Model */,
 				0FB1D4E010C1E77B00F10164 /* App Controller */,
@@ -229,6 +245,9 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0F6E2F6F1408182500D385E9 /* HideToolbars.js */,
+				0F6E2F701408182500D385E9 /* ScrollThroughBook.js */,
+				0F6E2F711408182500D385E9 /* jquery-1.6.2.min.js */,
 				0FDFBD3510ED0A4400D1C3C8 /* Icon.icns */,
 				0FB1D60D10C1EF3C00F10164 /* dsa_pub.pem */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
@@ -279,7 +298,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Google Book Downloader" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Google Book Downloader */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -294,6 +320,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F6E311B14093C9E00D385E9 /* HideToolbars.js in Resources */,
+				0F6E311C14093C9E00D385E9 /* ScrollThroughBook.js in Resources */,
+				0F6E311D14093C9E00D385E9 /* jquery-1.6.2.min.js in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* DownloadWindow.xib in Resources */,
@@ -322,6 +351,8 @@
 				0F288D3F10E723E600E0368B /* WebImageInspector.m in Sources */,
 				0F4113E612A7106C00F1E43D /* HacSavePanelAdditions.m in Sources */,
 				0F41141712A7171200F1E43D /* HacHTMLDocument.m in Sources */,
+				0F6E2F6E1408153A00D385E9 /* ResourceDownloader.m in Sources */,
+				0F6E2F9F14081D3000D385E9 /* DDURLParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

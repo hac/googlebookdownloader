@@ -10,7 +10,25 @@
 
 #import "AppController.h"
 
+#import "DDURLParser.h"
+
 @implementation GoogleBook
+
+- (id)init
+{
+	if (self = [super init])
+	{
+		scrollComplete = NO;
+		isPDF = NO;
+		shouldAbortAsSoonAsPossible = NO;
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	[super dealloc];
+}
 
 #pragma mark -
 #pragma mark Accessor Methods
@@ -50,130 +68,43 @@
 }
 
 #pragma mark -
-#pragma mark JSON Parsing
-
-- (void)addKeysToImageIndexFromString:(NSString *)indexString
-{
-	RKRegex *pageNumberPattern = [RKRegex regexWithRegexString:@"\"pid\":\"([^\"]*)\"" options:RKCompileCaseless];
-	RKEnumerator *matches = [indexString matchEnumeratorWithRegex:pageNumberPattern];
-
-	while (matches && [matches nextRanges])
-	{
-		NSString *pageNumberSubstring = [indexString substringWithRange:[matches currentRange]];
-		NSString *pageNumber = [pageNumberSubstring stringByMatching:pageNumberPattern withReferenceString:@"${1}"];
-
-		if (![pageOrder containsObject:pageNumber])
-		{
-			[pageOrder addObject:pageNumber];
-			[imageIndex setObject:@"" forKey:pageNumber];
-		}
-	}
-}
-
-- (void)addValuesToImageIndexFromString:(NSString *)indexString
-{
-	RKRegex *pageNumberPattern = @"\"pid\":\"([^\"]*)\",\"src\":\"([^\"]*)\"";
-	RKEnumerator *matches = [indexString matchEnumeratorWithRegex:pageNumberPattern];
-
-	while (matches && [matches nextRanges])
-	{
-		NSString *pageNumberSubstring = [indexString substringWithRange:[matches currentRange]];
-		NSString *pageNumber = [pageNumberSubstring stringByMatching:pageNumberPattern withReferenceString:@"${1}"];
-		NSString *imagePath = [pageNumberSubstring stringByMatching:pageNumberPattern withReferenceString:@"${2}"];
-
-		imagePath = [imagePath stringByReplacingOccurrencesOfString:@"\\u0026"
-														 withString:@"&"];
-		[imageIndex setObject:imagePath forKey:pageNumber];
-	}
-}
-
-#pragma mark -
-#pragma mark Indexing
-
-- (void)getInitialIndex
-{
-	if (!initialIndexJSON)
-	{
-		// Get an initial index so we can get all the page numbers in the book
-		initialIndexJSON = [[GoogleBooksAPI initialJsonIndexForBookWithId:bookId] retain];
-	}
-}
+#pragma mark Downloading
 
 - (BOOL)bookExists
 {
 	return [GoogleBooksAPI overviewPageExistsForBookWithId:bookId];
 }
 
-- (BOOL)bookIsValid
+- (void)onload
 {
-	[self getInitialIndex];
-	return ([initialIndexJSON length] > 0);
+	[self runScript:@"jquery-1.6.2.min"];
+	[self runScript:@"HideToolbars"];
+	[self runScript:@"ScrollThroughBook"];
 }
 
-- (BOOL)completeIndex
+- (void)checkScrollComplete
 {
-	[self getInitialIndex];
+	NSString *stringScrollComplete = [webView stringByEvaluatingJavaScriptFromString:@"scrollComplete"];
+	if ([stringScrollComplete isEqualToString:@"true"]) scrollComplete = YES;
+}
 
-	// This object stores the image url that goes with each page.
-	imageIndex = [[NSMutableDictionary alloc] init];
-
-	// This object stores the order of the pages (so we can put them back together later).
-	pageOrder = [[NSMutableArray alloc] init];
-
-	// Get all the page numbers from the initial index.
-	[self addKeysToImageIndexFromString:initialIndexJSON];
-
-	// It will probably also have the URLs for the first few pages. Take those so we don't have to look them up later.
-	[self addValuesToImageIndexFromString:initialIndexJSON];
-
-	NSProgressIndicator *progressIndicator = [delegate bookProcessingProgressIndicator];
-	[progressIndicator setDoubleValue:0];
-	[progressIndicator setIndeterminate:NO];
-	[progressIndicator setMaxValue:[pageOrder count]];
-
-	// The following loop should not make sense to you if you don't know how the Google Books server returns URLs:
-	int i;
-	for (i = 0; i < [pageOrder count]; i++)
+- (void)downloadAllPages
+{
+	[self performSelectorOnMainThread:@selector(startFromURL:)
+						   withObject:[NSString stringWithFormat:@"http://books.google.com/books?id=%@&printsec=frontcover", bookId]
+						waitUntilDone:YES];
+	
+	// Wait until either...
+	// 1) The web browser is completely scrolled down and there are no currently loading images
+	// or 2) The user clicked cancel
+	
+	while ((scrollComplete == NO || [self currentDownloads] > 0) && shouldAbortAsSoonAsPossible == NO)
 	{
-		// Update the progress window.
-		[progressIndicator setDoubleValue:(double)i];
-		[delegate bookProcessingStatusChanged:[NSString stringWithFormat:@"Finding image URLs: %d/%d pages complete", i, [pageOrder count]]];
-
-		NSString *pageNumber = [pageOrder objectAtIndex:i];
-		if ([[imageIndex valueForKey:pageNumber] isEqualToString:@""])
-		{
-			if ([pageOrder count] > i+1)
-			{
-				i++;
-				NSString *nextPageNumber = [pageOrder objectAtIndex:i];
-				[self addValuesToImageIndexFromString:[GoogleBooksAPI jsonIndexByAskingForPage:nextPageNumber
-																				 ForBookWithId:bookId]];
-			}
-
-			if ([[imageIndex valueForKey:pageNumber] isEqualToString:@""])
-			{
-				[self addValuesToImageIndexFromString:[GoogleBooksAPI jsonIndexByAskingForPage:pageNumber
-																				 ForBookWithId:bookId]];
-			}
-
-			// Stop if the user clicks cancel.
-			if (shouldAbortAsSoonAsPossible)
-			{
-				NSString *logString = [NSString stringWithFormat:@"Index of %@ was CANCELLED with %d URLs.",
-									   [self bookId],
-									   [pageOrder count]];
-				[[AppController sharedController] writeStringToLog:logString];
-				return NO;
-			}
-		}
+		[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+		[self performSelectorOnMainThread:@selector(checkScrollComplete) withObject:nil waitUntilDone:YES];
 	}
-
-	NSString *logString = [NSString stringWithFormat:@"Index of %@ was COMPLETED with %d URLs.",
-						   [self bookId],
-						   [pageOrder count]];
-	[[AppController sharedController] writeStringToLog:logString];
-
-	return YES;
+	
+	[self stop];
 }
 
 #pragma mark -
@@ -181,77 +112,25 @@
 
 - (PDFDocument *)pdfDocument
 {
-	PDFDocument *pdfDocument = [[[PDFDocument alloc] init] autorelease];
-
-	NSProgressIndicator *progressIndicator = [delegate bookProcessingProgressIndicator];
-	[progressIndicator setDoubleValue:0];
-	[progressIndicator setIndeterminate:NO];
-	[progressIndicator setMaxValue:[pageOrder count]];
-
-	int i;
-	for (i = 0; i < [pageOrder count]; i++)
-	{
-		[progressIndicator setDoubleValue:(double)i];
-		[delegate bookProcessingStatusChanged:[NSString stringWithFormat:@"Building PDF: %d/%d pages complete", i, [pageOrder count]]];
-
-		NSString *pageNumber = [pageOrder objectAtIndex:i];
-		NSString *imagePath = [imageIndex valueForKey:pageNumber];
-
-		// We will need to check the user's preferences on page size.
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-		if ([defaults boolForKey:@"UseCustomPageWidth"])
-			// If the user has a custom page width set...
-		{
-			// Ask Google for the page to have the specific width.
-			int imageWidth = [defaults integerForKey:@"BookWidth"];
-			imagePath = [NSString stringWithFormat:@"%@&w=%d", imagePath, imageWidth];
-		}
-
-		// Download the page image.
-		NSImage *pageImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:imagePath]];
-
-		if ([defaults boolForKey:@"UseCustomPageWidth"])
-			// If the user has a custom page width set...
-		{
-			// Sometimes the image ends up with the wrong dimensions, even though all the information is there.
-			// Set the size to make sure it is right.
-			int imageWidth = [defaults integerForKey:@"BookWidth"];
-			[pageImage setSize:NSMakeSize(imageWidth, [pageImage size].height * (float)imageWidth / [pageImage size].width)];
-		}
-
-		NSString *logString = [NSString stringWithFormat:@"%@> Adding image: %@\nWIDTH:%f HEIGHT:%f", [self bookId], imagePath, [pageImage size].width, [pageImage size].height];
-		[[AppController sharedController] writeStringToLog:logString];
+	pdfDocument = [[PDFDocument alloc] init];
+	
+	isPDF = YES;
+	
+	[self downloadAllPages];
 		
-		// Sometimes we get a 404 for pages we're not allowed to see.
-		bool pageImageIsValid = (pageImage != nil) && ([pageImage size].width > 0) && ([pageImage size].height > 0);
-		
-		if (pageImageIsValid)
-		{
-			PDFPage *page = [[PDFPage alloc] initWithImage:(id)pageImage]; // If we don't cast pageImage to type id we get a warning. I don't know why.
-			[pdfDocument insertPage:page atIndex:[pdfDocument pageCount]];
-			[page release];
-		}
-		
-		[pageImage release];
-
-		// Stop if the user clicks cancel.
-		if (shouldAbortAsSoonAsPossible)
-			return nil;
-	}
-
-	return pdfDocument;
+	return [pdfDocument autorelease];
 }
 
 #pragma mark -
 #pragma mark Saving as a folder
-
-- (BOOL)saveImagesToFolder:(NSString *)folderPath
+- (BOOL)saveImagesToFolder:(NSString *)aFolderPath
 {
+	folderPath = [aFolderPath retain];
+	
 	NSProgressIndicator *progressIndicator = [delegate bookProcessingProgressIndicator];
 	[progressIndicator setDoubleValue:0];
-	[progressIndicator setIndeterminate:NO];
-	[progressIndicator setMaxValue:[pageOrder count]];	
+	[progressIndicator setIndeterminate:YES];
+	[progressIndicator startAnimation:nil];
 	
 	BOOL isDirectory;
 	if ([[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDirectory] && isDirectory)
@@ -265,37 +144,92 @@
 		return NO;
 	}
 	
-	NSString *htmlBody = @"";
+	htmlBody = [[NSMutableString alloc] init];
 	
-	int i;
-	for (i = 0; i < [pageOrder count]; i++)
-	{
-		[progressIndicator setDoubleValue:(double)i];
-		[delegate bookProcessingStatusChanged:[NSString stringWithFormat:@"Downloading images: %d/%d pages complete", i, [pageOrder count]]];
-		
-		NSString *pageNumber = [pageOrder objectAtIndex:i];
-		NSString *imagePath = [imageIndex valueForKey:pageNumber];
-		
-		NSData *jpgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imagePath]];
-		
-		if (jpgData)
-		{
-			NSString *newFileName = [NSString stringWithFormat:@"%@.jpg", pageNumber];
-			NSString *newFilePath = [folderPath stringByAppendingPathComponent:newFileName];
-			
-			[jpgData writeToFile:newFilePath
-					  atomically:YES];
-			htmlBody = [htmlBody stringByAppendingString:[NSString stringWithFormat:@"<img src=\"%@\" /><br />\n", newFileName]];
-		}
-	}
+	pagesDownloaded = 0;
 	
+	[self downloadAllPages];
+		
 	NSString *html = [HacHTMLDocument htmlWithTitle:[self bookTitle]
 											   body:htmlBody];
-	
 	[html writeToFile:[folderPath stringByAppendingPathComponent:@"index.html"]
 		   atomically:YES];
 	
+	[folderPath release];
+	folderPath = nil;
+	
+	[htmlBody release];
+	htmlBody = nil;
+		
 	return YES;
+}
+
+- (void)resourceLoaded:(WebResource *)resource
+{
+	NSArray *mimeParts = [[resource MIMEType] componentsSeparatedByString:@"/"];
+	NSString *extension = nil;
+	if ([[mimeParts objectAtIndex:0] isEqualToString:@"image"])
+	{
+		extension = [mimeParts objectAtIndex:1];
+	}
+/*	else if ([[mimeParts objectAtIndex:0] isEqualToString:@"text"]) {
+		extension = @"txt";
+	}*/
+	else
+	{
+		return;
+	}
+
+	DDURLParser *parser = [[[DDURLParser alloc] initWithURLString:[[resource URL] absoluteString]] autorelease];
+	NSString *pg = [parser valueForVariable:@"pg"];
+	
+	if (pg == nil)
+	{
+		return;
+	}
+	
+	if (isPDF)
+	{
+		// We will need to check the user's preferences on page size.
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		
+		// Download the page image.
+		NSImage *pageImage = [[NSImage alloc] initWithData:[resource data]];
+		
+		if ([defaults boolForKey:@"UseCustomPageWidth"])
+			// If the user has a custom page width set...
+		{
+			// Sometimes the image ends up with the wrong dimensions, even though all the information is there.
+			// Set the size to make sure it is right.
+			int imageWidth = [defaults integerForKey:@"BookWidth"];
+			[pageImage setSize:NSMakeSize(imageWidth, [pageImage size].height * (float)imageWidth / [pageImage size].width)];
+		}
+		
+		NSString *logString = [NSString stringWithFormat:@"%@> Adding image: %@.%@\nWIDTH:%f HEIGHT:%f", [self bookId], pg, extension, [pageImage size].width, [pageImage size].height];
+		[[AppController sharedController] writeStringToLog:logString];
+		
+		bool pageImageIsValid = (pageImage != nil) && ([pageImage size].width > 0) && ([pageImage size].height > 0);
+		
+		if (pageImageIsValid)
+		{
+			PDFPage *page = [[PDFPage alloc] initWithImage:(id)pageImage]; // If we don't cast pageImage to type id we get a warning. I don't know why.
+			[pdfDocument insertPage:page atIndex:[pdfDocument pageCount]];
+			[page release];
+		}
+		
+		[pageImage release];
+	}
+	else
+	{
+		[[NSFileManager defaultManager] createDirectoryAtPath:folderPath attributes:nil];
+		[[resource data] writeToFile:[NSString stringWithFormat:@"%@/%@.%@", folderPath, pg, extension] atomically:YES];
+		
+		[htmlBody appendFormat:@"<img src=\"%@.%@\" /><br />\n", pg, extension];
+	}
+
+	pagesDownloaded++;
+	
+	[delegate bookProcessingStatusChanged:[NSString stringWithFormat:@"Downloading images: %d pages complete", pagesDownloaded]];
 }
 
 #pragma mark -
@@ -304,18 +238,6 @@
 - (void)abortProcedures
 {
 	shouldAbortAsSoonAsPossible = YES;
-}
-
-#pragma mark -
-#pragma mark Life Cycle
-
-- (void)dealloc
-{
-	[initialIndexJSON release];
-	[imageIndex release];
-	[pageOrder release];
-
-	[super dealloc];
 }
 
 @end

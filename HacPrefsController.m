@@ -11,8 +11,9 @@
 	// These are the default preferences:
 	NSDictionary *defaultDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
 									   [NSNumber numberWithInt:defaultBookWidth], @"BookWidth", 
-									   [NSNumber numberWithBool:YES], @"UseCustomPageWidth",
-									   [NSNumber numberWithBool:YES], @"AutoOpenDownloadsInFinder", nil];
+									   [NSNumber numberWithBool:NO], @"UseCustomPageWidth",
+									   [NSNumber numberWithBool:YES], @"AutoOpenDownloadsInFinder",
+									   [NSNumber numberWithBool:NO], @"DonateAlertShown", nil];
 	[defaults registerDefaults:defaultDictionary];
 	
 	[openBookInFinderAfterSaving setState:[defaults boolForKey:@"AutoOpenDownloadsInFinder"]];
