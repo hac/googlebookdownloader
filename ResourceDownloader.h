@@ -13,6 +13,7 @@
 @interface ResourceDownloader : NSObject
 {
 	WebView *webView;
+	NSMutableArray *requestIndex;
 	int r;
 }
 

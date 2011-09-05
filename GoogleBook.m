@@ -21,12 +21,16 @@
 		scrollComplete = NO;
 		isPDF = NO;
 		shouldAbortAsSoonAsPossible = NO;
+		
+		pdfIndex = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
 
 - (void)dealloc
 {
+	[pdfIndex release];
+	
 	[super dealloc];
 }
 
@@ -212,8 +216,23 @@
 		
 		if (pageImageIsValid)
 		{
+			// This number refers to the order at which each image on the page begins to load.
+			// Since many pages can be loading simultaneously, the order at which the finish loading might be wrong.
+			int imageNumber = [requestIndex indexOfObject:[resource URL]];
+			
+			// If we get pages loaded so late that after them are already in the PDF, backtrack to the right spot.
+			// This bug fixed was introduced in 2.0.1
+			int insertIndex = [pdfDocument pageCount];
+			while (insertIndex > 0
+				   && imageNumber < [[pdfIndex objectAtIndex:insertIndex-1] intValue])
+			{
+				insertIndex--;
+			}
+			
+			// Use PDFKit to add turn the image into a PDF page and add it to the file in memory.
 			PDFPage *page = [[PDFPage alloc] initWithImage:(id)pageImage]; // If we don't cast pageImage to type id we get a warning. I don't know why.
-			[pdfDocument insertPage:page atIndex:[pdfDocument pageCount]];
+			[pdfDocument insertPage:page atIndex:insertIndex];
+			[pdfIndex insertObject:[NSNumber numberWithInt:imageNumber] atIndex:insertIndex];
 			[page release];
 		}
 		

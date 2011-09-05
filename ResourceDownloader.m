@@ -12,6 +12,8 @@
 
 - (void)startFromURL:(NSString *)url
 {
+	requestIndex = [[NSMutableArray alloc] init];
+	
 	webView = [[WebView alloc] initWithFrame:NSMakeRect(0, 0, 800, 800)];
 	
 	[webView setResourceLoadDelegate:self];
@@ -69,6 +71,8 @@ didFinishLoadingFromDataSource:(WebDataSource *)dataSource
 
 - (id) webView : (WebView *) sender identifierForInitialRequest : (NSURLRequest  *) request fromDataSource : (id) dataSource
 {
+	[requestIndex addObject:[request URL]];
+	
 	r++;
 	return request;
 }
@@ -82,6 +86,9 @@ didFinishLoadingFromDataSource:(WebDataSource *)dataSource
 {
 	[webView release];
 	webView = nil;
+	
+	[requestIndex release];
+	requestIndex = nil;
 	
 	[super dealloc];
 }

@@ -13,7 +13,9 @@
 
 	NSString *bookId, *folderPath;
 	NSMutableString *htmlBody;
-
+	
+	NSMutableArray *pdfIndex;
+	
 	BOOL shouldAbortAsSoonAsPossible, scrollComplete, isPDF;
 	
 	int pagesDownloaded;
