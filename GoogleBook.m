@@ -1,16 +1,11 @@
 #import "GoogleBook.h"
-
 #import "GoogleBooksAPI.h"
-
 #import <RegexKit/RegexKit.h>
-
 #import "HacStringAdditions.h"
-
 #import "HacHTMLDocument.h"
-
 #import "AppController.h"
-
 #import "DDURLParser.h"
+#import "WebView+FakeClicking.h"
 
 @implementation GoogleBook
 
@@ -23,6 +18,7 @@
 		shouldAbortAsSoonAsPossible = NO;
 		
 		pdfIndex = [[NSMutableArray alloc] init];
+		pageNumberMap = [[NSMutableDictionary alloc] init];
 	}
 	return self;
 }
@@ -30,6 +26,7 @@
 - (void)dealloc
 {
 	[pdfIndex release];
+	[pageNumberMap release];
 	
 	[super dealloc];
 }
@@ -79,15 +76,44 @@
 	return [GoogleBooksAPI overviewPageExistsForBookWithId:bookId];
 }
 
+- (void)beginScroll
+{
+	[webView runScript:@"ScrollThroughBook"];
+}
+
 - (void)onload
 {
-	[self runScript:@"jquery-1.6.2.min"];
-	[self runScript:@"HideToolbars"];
-	[self runScript:@"ScrollThroughBook"];
+	[webView runScript:@"jquery-1.6.2.min"];
+	
+	//[webView runScript:@"HideToolbars"];
+	
+	// This intentional pause helps to let the fake clicker click the zoom in button.
+	[NSTimer scheduledTimerWithTimeInterval:3
+									 target:self
+								   selector:@selector(beginScroll)
+								   userInfo:nil
+									repeats:NO];
 }
 
 - (void)checkScrollComplete
 {
+	// Look for the zoom in button.
+	// Buttons: ":0" = Zoom out, ":1" = Zoom in, ":2" = One page, ":3" = Two pages
+	if (!zoomedIn)
+	{
+		int zoomLevel = [[NSUserDefaults standardUserDefaults] integerForKey:@"ZoomLevel"];
+		if (zoomLevel)
+		{
+			zoomedIn = [webView clickElementWithId:@":1" repeat:zoomLevel];
+		}
+		else
+		{
+			zoomedIn = YES;
+		}
+
+	}
+	
+	// Check if the scroller has reached the bottom.
 	NSString *stringScrollComplete = [webView stringByEvaluatingJavaScriptFromString:@"scrollComplete"];
 	if ([stringScrollComplete isEqualToString:@"true"]) scrollComplete = YES;
 }
@@ -106,6 +132,11 @@
 	{
 		[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
 		[self performSelectorOnMainThread:@selector(checkScrollComplete) withObject:nil waitUntilDone:YES];
+	}
+	
+	if (!zoomedIn)
+	{
+		NSLog(@"FAILED to zoom in");
 	}
 	
 	[self stop];
@@ -186,6 +217,7 @@
 
 	DDURLParser *parser = [[[DDURLParser alloc] initWithURLString:[[resource URL] absoluteString]] autorelease];
 	NSString *pg = [parser valueForVariable:@"pg"];
+	int width = [[parser valueForVariable:@"w"] intValue];
 	
 	if (pg == nil)
 	{
@@ -198,16 +230,13 @@
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		
 		// Download the page image.
-		NSImage *pageImage = [[NSImage alloc] initWithData:[resource data]];
-		
-		if ([defaults boolForKey:@"UseCustomPageWidth"])
-			// If the user has a custom page width set...
-		{
-			// Sometimes the image ends up with the wrong dimensions, even though all the information is there.
-			// Set the size to make sure it is right.
-			int imageWidth = [defaults integerForKey:@"BookWidth"];
-			[pageImage setSize:NSMakeSize(imageWidth, [pageImage size].height * (float)imageWidth / [pageImage size].width)];
-		}
+		NSImage *pageImage = [[[NSImage alloc] initWithData:[resource data]] autorelease];
+			
+		// Sometimes the image ends up with the wrong dimensions, even though all the information is there.
+		// Set the size to make sure it is right.
+		// If the user has a custom page width set use that.
+		int imageWidth = ([defaults boolForKey:@"UseCustomPageWidth"])?[defaults integerForKey:@"BookWidth"]:width;
+		[pageImage setSize:NSMakeSize(imageWidth, [pageImage size].height * (float)imageWidth / [pageImage size].width)];
 		
 		NSString *logString = [NSString stringWithFormat:@"%@> Adding image: %@.%@\nWIDTH:%f HEIGHT:%f", [self bookId], pg, extension, [pageImage size].width, [pageImage size].height];
 		[[AppController sharedController] writeStringToLog:logString];
@@ -219,6 +248,31 @@
 			// This number refers to the order at which each image on the page begins to load.
 			// Since many pages can be loading simultaneously, the order at which the finish loading might be wrong.
 			int imageNumber = [requestIndex indexOfObject:[resource URL]];
+			
+			// If there is already an image of this page, delete it.
+			// It's probably a lower quality image from before we zoomed in.
+			NSNumber *existingPage = [pageNumberMap objectForKey:pg];
+			if (existingPage != nil)
+			{
+				// Get information about the existing image.
+				NSURL *existingURL = [requestIndex objectAtIndex:[existingPage intValue]];
+				int existingImageNumber = [requestIndex indexOfObject:existingURL];
+				DDURLParser *existingPageParser = [[[DDURLParser alloc] initWithURLString:[existingURL absoluteString]] autorelease];
+				int existingWidth = [[existingPageParser valueForVariable:@"w"] intValue];
+				
+				// If it's larger, then don't add the new one.
+				if (existingWidth > width)
+				{
+					return;
+				}
+				
+				// Otherwise delete the old one.
+				int indexToDelete = [pdfIndex indexOfObject:[NSNumber numberWithInt:existingImageNumber]];
+				[pdfIndex removeObjectAtIndex:indexToDelete];
+				[pdfDocument removePageAtIndex:indexToDelete];
+			}
+			
+			[pageNumberMap setObject:[NSNumber numberWithInt:imageNumber] forKey:pg];
 			
 			// If we get pages loaded so late that after them are already in the PDF, backtrack to the right spot.
 			// This bug fixed was introduced in 2.0.1
@@ -235,15 +289,21 @@
 			[pdfIndex insertObject:[NSNumber numberWithInt:imageNumber] atIndex:insertIndex];
 			[page release];
 		}
-		
-		[pageImage release];
 	}
 	else
 	{
 		[[NSFileManager defaultManager] createDirectoryAtPath:folderPath attributes:nil];
-		[[resource data] writeToFile:[NSString stringWithFormat:@"%@/%@.%@", folderPath, pg, extension] atomically:YES];
 		
-		[htmlBody appendFormat:@"<img src=\"%@.%@\" /><br />\n", pg, extension];
+		NSString *filePath = [NSString stringWithFormat:@"%@/%@.%@", folderPath, pg, extension];
+		
+		BOOL overwriting = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+		
+		[[resource data] writeToFile:filePath atomically:YES];
+		
+		if (!overwriting)
+		{
+			[htmlBody appendFormat:@"<img src=\"%@.%@\" /><br />\n", pg, extension];
+		}
 	}
 
 	pagesDownloaded++;

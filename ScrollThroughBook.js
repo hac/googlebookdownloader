@@ -3,11 +3,6 @@ scrollComplete = false;
 yInterval = 50;
 tInterval = 2;
 
-function scrollComplete()
-{
-	return "HI";
-}
-
 function scrollDown()
 {
 	original = scrolly.scrollTop;

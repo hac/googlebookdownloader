@@ -29,12 +29,6 @@
 	webView = nil;
 }
 
-- (NSString *)runScript:(NSString *)scriptName
-{
-	NSString *inject = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:scriptName ofType:@"js"] usedEncoding:nil error:nil];
-	return [webView stringByEvaluatingJavaScriptFromString:inject];
-}
-
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
 	if (frame == [sender mainFrame])

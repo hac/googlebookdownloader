@@ -5,6 +5,7 @@
 	IBOutlet NSTextField *documentWidth;
 	IBOutlet NSButton *openBookInFinderAfterSaving;
 	IBOutlet NSMatrix *widthPrefsMatrix;
+	IBOutlet NSSlider *zoomLeverSlider;
 }
 
 - (IBAction)savePrefs:(id)sender;

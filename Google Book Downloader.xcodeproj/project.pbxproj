@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F22AE92141BAB3600FCC5FB /* WebView+FakeClicking.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F22AE91141BAB3600FCC5FB /* WebView+FakeClicking.m */; };
+		0F22AEA5141BAC0600FCC5FB /* GetPosition.js in Resources */ = {isa = PBXBuildFile; fileRef = 0F22AE93141BABFD00FCC5FB /* GetPosition.js */; };
 		0F288D0310E720C200E0368B /* StretchySegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F288D0210E720C200E0368B /* StretchySegmentedControl.m */; };
 		0F288D3F10E723E600E0368B /* WebImageInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F288D3E10E723E600E0368B /* WebImageInspector.m */; };
 		0F288DE210E72E6600E0368B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F288DE110E72E6600E0368B /* WebKit.framework */; };
@@ -55,6 +57,9 @@
 
 /* Begin PBXFileReference section */
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0F22AE90141BAB3600FCC5FB /* WebView+FakeClicking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebView+FakeClicking.h"; sourceTree = "<group>"; };
+		0F22AE91141BAB3600FCC5FB /* WebView+FakeClicking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WebView+FakeClicking.m"; sourceTree = "<group>"; };
+		0F22AE93141BABFD00FCC5FB /* GetPosition.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = GetPosition.js; sourceTree = "<group>"; };
 		0F288D0110E720C200E0368B /* StretchySegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchySegmentedControl.h; sourceTree = "<group>"; };
 		0F288D0210E720C200E0368B /* StretchySegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StretchySegmentedControl.m; sourceTree = "<group>"; };
 		0F288D3D10E723E600E0368B /* WebImageInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebImageInspector.h; sourceTree = "<group>"; };
@@ -218,6 +223,8 @@
 			children = (
 				0F5D660910C1A6E300FE8A2A /* HacStringAdditions.h */,
 				0F5D660A10C1A6E300FE8A2A /* HacStringAdditions.m */,
+				0F22AE90141BAB3600FCC5FB /* WebView+FakeClicking.h */,
+				0F22AE91141BAB3600FCC5FB /* WebView+FakeClicking.m */,
 				0F41141512A7171200F1E43D /* HacHTMLDocument.h */,
 				0F41141612A7171200F1E43D /* HacHTMLDocument.m */,
 				0F4113E412A7106C00F1E43D /* HacSavePanelAdditions.h */,
@@ -247,6 +254,7 @@
 			children = (
 				0F6E2F6F1408182500D385E9 /* HideToolbars.js */,
 				0F6E2F701408182500D385E9 /* ScrollThroughBook.js */,
+				0F22AE93141BABFD00FCC5FB /* GetPosition.js */,
 				0F6E2F711408182500D385E9 /* jquery-1.6.2.min.js */,
 				0FDFBD3510ED0A4400D1C3C8 /* Icon.icns */,
 				0FB1D60D10C1EF3C00F10164 /* dsa_pub.pem */,
@@ -322,6 +330,7 @@
 			files = (
 				0F6E311B14093C9E00D385E9 /* HideToolbars.js in Resources */,
 				0F6E311C14093C9E00D385E9 /* ScrollThroughBook.js in Resources */,
+				0F22AEA5141BAC0600FCC5FB /* GetPosition.js in Resources */,
 				0F6E311D14093C9E00D385E9 /* jquery-1.6.2.min.js in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
@@ -353,6 +362,7 @@
 				0F41141712A7171200F1E43D /* HacHTMLDocument.m in Sources */,
 				0F6E2F6E1408153A00D385E9 /* ResourceDownloader.m in Sources */,
 				0F6E2F9F14081D3000D385E9 /* DDURLParser.m in Sources */,
+				0F22AE92141BAB3600FCC5FB /* WebView+FakeClicking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

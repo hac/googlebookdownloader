@@ -19,7 +19,6 @@
 
 - (void)startFromURL:(NSString *)url;
 - (void)stop;
-- (NSString *)runScript:(NSString *)scriptName;
 
 - (void)onload;
 - (void)resourceLoaded:(WebResource *)resource;

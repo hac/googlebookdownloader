@@ -15,8 +15,9 @@
 	NSMutableString *htmlBody;
 	
 	NSMutableArray *pdfIndex;
+	NSMutableDictionary *pageNumberMap;
 	
-	BOOL shouldAbortAsSoonAsPossible, scrollComplete, isPDF;
+	BOOL shouldAbortAsSoonAsPossible, scrollComplete, isPDF, zoomedIn;
 	
 	int pagesDownloaded;
 	

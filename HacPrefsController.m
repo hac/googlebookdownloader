@@ -13,7 +13,8 @@
 									   [NSNumber numberWithInt:defaultBookWidth], @"BookWidth", 
 									   [NSNumber numberWithBool:NO], @"UseCustomPageWidth",
 									   [NSNumber numberWithBool:YES], @"AutoOpenDownloadsInFinder",
-									   [NSNumber numberWithBool:NO], @"DonateAlertShown", nil];
+									   [NSNumber numberWithBool:NO], @"DonateAlertShown",
+									   [NSNumber numberWithInt:10], @"ZoomLevel", nil];
 	[defaults registerDefaults:defaultDictionary];
 	
 	[openBookInFinderAfterSaving setState:[defaults boolForKey:@"AutoOpenDownloadsInFinder"]];
@@ -21,6 +22,7 @@
 	[widthPrefsMatrix setState:![defaults boolForKey:@"UseCustomPageWidth"]
 						 atRow:1
 						column:0];
+	[zoomLeverSlider setIntValue:[defaults integerForKey:@"ZoomLevel"]];
 	
 	[documentWidth setDelegate:self];
 	[[documentWidth window] setDelegate:self];
@@ -40,6 +42,9 @@
 		[documentWidth setIntValue:defaultBookWidth];
 	else
 		[documentWidth setIntValue:[documentWidth intValue]];
+	
+	if (sender == zoomLeverSlider)
+		[defaults setInteger:[zoomLeverSlider intValue] forKey:@"ZoomLevel"];
 	
 	[defaults setBool:![widthPrefsMatrix selectedRow] forKey:@"UseCustomPageWidth"];
 	
