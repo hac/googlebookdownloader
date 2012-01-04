@@ -104,7 +104,7 @@
 		int zoomLevel = [[NSUserDefaults standardUserDefaults] integerForKey:@"ZoomLevel"];
 		if (zoomLevel)
 		{
-			zoomedIn = [webView clickElementWithId:@":1" repeat:zoomLevel];
+			zoomedIn = [webView clickElementWithId:@":0" repeat:zoomLevel];
 		}
 		else
 		{
