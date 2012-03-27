@@ -12,6 +12,8 @@
 	id <GoogleBookDelegate> delegate;
 
 	NSString *bookId, *folderPath;
+	NSString *startPage;
+	int pageLimit;
 	NSMutableString *htmlBody;
 	
 	NSMutableArray *pdfIndex;
@@ -29,6 +31,12 @@
 
 - (void)setBookId:(NSString *)newBookId;
 - (NSString *)bookId;
+
+- (void)setStartPage:(NSString *)newStartPage;
+- (NSString *)startPage;
+
+- (void)setPageLimit:(int)newPageLimit;
+- (int)pageLimit;
 
 - (NSString *)bookTitle;
 

@@ -15,6 +15,7 @@
 	NSSavePanel *savePanel;
 	IBOutlet NSView *formatChooserView;
 	IBOutlet NSPopUpButton *formatChooserButton;
+	IBOutlet NSTextField *startPage, *pageLimit;
 	BOOL saveAsFolder;
 	
 	// These are in the progress indicator sheet:

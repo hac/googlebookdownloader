@@ -13,6 +13,9 @@
 {
 	if (self = [super init])
 	{
+		bookId = nil;
+		startPage = nil;
+		
 		scrollComplete = NO;
 		isPDF = NO;
 		shouldAbortAsSoonAsPossible = NO;
@@ -25,6 +28,9 @@
 
 - (void)dealloc
 {
+	[startPage release];
+	[bookId release];
+
 	[pdfIndex release];
 	[pageNumberMap release];
 	
@@ -53,6 +59,27 @@
 - (NSString *)bookId
 {
 	return bookId;
+}
+
+- (void)setStartPage:(NSString *)newStartPage
+{
+	[startPage release];
+	startPage = [newStartPage copy];
+}
+
+- (NSString *)startPage
+{
+	return startPage;
+}
+
+- (void)setPageLimit:(int)newPageLimit
+{
+	pageLimit = newPageLimit;
+}
+
+- (int)pageLimit
+{
+	return pageLimit;
 }
 
 #pragma mark -
@@ -120,8 +147,14 @@
 
 - (void)downloadAllPages
 {
+	NSString *url = [NSString stringWithFormat:@"http://books.google.com/books?id=%@&printsec=frontcover", bookId];
+	if (startPage)
+	{
+		url = [url stringByAppendingFormat:@"&pg=PA%@", startPage];
+	}	
+	NSLog(@"Downloading: %@", url);
 	[self performSelectorOnMainThread:@selector(startFromURL:)
-						   withObject:[NSString stringWithFormat:@"http://books.google.com/books?id=%@&printsec=frontcover", bookId]
+						   withObject:url
 						waitUntilDone:YES];
 	
 	// Wait until either...
@@ -252,7 +285,7 @@
 			// If there is already an image of this page, delete it.
 			// It's probably a lower quality image from before we zoomed in.
 			NSNumber *existingPage = [pageNumberMap objectForKey:pg];
-			if (existingPage != nil)
+			if (existingPage)
 			{
 				// Get information about the existing image.
 				NSURL *existingURL = [requestIndex objectAtIndex:[existingPage intValue]];
@@ -271,6 +304,11 @@
 				[pdfIndex removeObjectAtIndex:indexToDelete];
 				[pdfDocument removePageAtIndex:indexToDelete];
 			}
+			else
+			{
+				pagesDownloaded++;
+			}
+
 			
 			[pageNumberMap setObject:[NSNumber numberWithInt:imageNumber] forKey:pg];
 			
@@ -303,10 +341,16 @@
 		if (!overwriting)
 		{
 			[htmlBody appendFormat:@"<img src=\"%@.%@\" /><br />\n", pg, extension];
+			pagesDownloaded++;
 		}
 	}
-
-	pagesDownloaded++;
+	
+	if (pageLimit && pagesDownloaded >= pageLimit + 1)
+	{
+		[pdfDocument removePageAtIndex:1]; // Delete the second page because it's really the -1st page.
+		 
+		shouldAbortAsSoonAsPossible = YES;
+	}
 	
 	[delegate bookProcessingStatusChanged:[NSString stringWithFormat:@"Downloading images: %d pages complete", pagesDownloaded]];
 }

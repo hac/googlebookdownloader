@@ -156,6 +156,9 @@
 - (IBAction)beginDownload:(id)sender
 {
 	NSString *userInput = [locationBar stringValue];
+	
+	[startPage setStringValue:@""];
+	[pageLimit setStringValue:@""];
 
 	// If the user hasn't put text in the location field, they probably clicked the button accidentally.
 	if (![userInput length])
@@ -231,6 +234,9 @@
 - (void)download
 {
 	NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
+	
+	[book setStartPage:[startPage stringValue]];
+	[book setPageLimit:[pageLimit intValue]];
 	
 	[self performSelectorOnMainThread:@selector(showLoadingSheet) withObject:nil waitUntilDone:YES];
 
