@@ -7,7 +7,7 @@
 - (void)setFilename:(NSString *)filename
 {
 	[self setDirectory:[filename stringByDeletingLastPathComponent]];
-	[_nameField setStringValue:[filename lastPathComponent]];
+//	[_nameField setStringValue:[filename lastPathComponent]];
 }
 
 @end

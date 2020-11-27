@@ -5,8 +5,6 @@
 	IBOutlet NSTextView *logView;
 }
 
-AppController *sharedController;
-
 + (AppController *)sharedController;
 + (void)setSharedController:(AppController *)value;
 
@@ -19,3 +17,5 @@ AppController *sharedController;
 - (void)showDonateAlert;
 
 @end
+
+AppController *sharedController;
